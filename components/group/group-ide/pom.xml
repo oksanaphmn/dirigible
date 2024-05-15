@@ -18,6 +18,10 @@
         <!-- IDE Core -->
         <dependency>
             <groupId>org.eclipse.dirigible</groupId>
+            <artifactId>dirigible-components-ide-ui-shell</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.dirigible</groupId>
             <artifactId>dirigible-components-ide-workspace</artifactId>
         </dependency>
         <dependency>

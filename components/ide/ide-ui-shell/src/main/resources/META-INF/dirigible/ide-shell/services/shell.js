@@ -9,4 +9,16 @@
  * SPDX-FileCopyrightText: Eclipse Dirigible contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-let monacoTheme = 'vs-dark';
+const shellData = {
+	id: "ideShell",
+	link: "../ide-shell/index.html",
+	order: 0,
+	config: {
+		lazyLoad: true
+	}
+};
+if (typeof exports !== 'undefined') {
+	exports.getShell = function () {
+		return shellData;
+	}
+}

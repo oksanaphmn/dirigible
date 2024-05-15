@@ -82,6 +82,7 @@
 		<module>ide/ide-logs</module>
 
 		<!-- IDE UI -->
+		<module>ide/ide-ui-shell</module>
 		<module>ide/ide-ui-about</module>
 		<module>ide/ide-ui-actions-service</module>
 		<module>ide/ide-ui-bpm</module>
@@ -193,7 +194,6 @@
 		<module>resources/resources-flowable-libs</module>
 		<module>resources/resources-mxgraph</module>
 		<module>resources/resources-resources</module>
-		<module>resources/resources-theme-default</module>
 		<module>resources/resources-theme-quartz-dark</module>
 		<module>resources/resources-theme-quartz-light</module>
 		<module>resources/resources-themes</module>
@@ -682,6 +682,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.dirigible</groupId>
+				<artifactId>dirigible-components-ide-ui-shell</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.dirigible</groupId>
 				<artifactId>dirigible-components-ide-ui-about</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -1129,11 +1134,6 @@
 			<dependency>
 				<groupId>org.eclipse.dirigible</groupId>
 				<artifactId>dirigible-components-resources-resources</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.dirigible</groupId>
-				<artifactId>dirigible-components-resources-theme-default</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

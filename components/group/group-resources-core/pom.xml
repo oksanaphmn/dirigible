@@ -29,10 +29,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.dirigible</groupId>
-			<artifactId>dirigible-components-resources-theme-default</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.dirigible</groupId>
 			<artifactId>dirigible-components-resources-theme-quartz-dark</artifactId>
 		</dependency>
 		<dependency>
