@@ -21,15 +21,8 @@ try {
 	console.error('Error while loading theme modules: ' + e);
 }
 
-export const getThemes = (legacy = true) => {
-	let themes = [];
-	for (const theme of allThemes) {
-		if (legacy) {
-			if (!('type' in theme)) themes.push(theme);
-		}
-		else if ('type' in theme) themes.push(theme);
-	}
-	return sort(themes);
+export const getThemes = () => {
+	return sort(allThemes);
 };
 
 function sort(themes) {

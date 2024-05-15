@@ -17,28 +17,25 @@ import { configurations } from "sdk/core";
 import * as themesManager from "./extensions/themes";
 import * as cacheUtils from "./utils/cache";
 
-let THEME_CACHE = cacheUtils.getCache();
+const THEME_CACHE = cacheUtils.getCache();
 
-let PATH_REGISTRY_PUBLIC = '/registry/public';
-let DIRIGIBLE_THEME_DEFAULT = 'DIRIGIBLE_THEME_DEFAULT';
-let DEFAULT_THEME = 'default';
-let NAME_PARAM = 'name';
-let THEME_COOKIE = 'dirigible-theme';
-let DEFAULT_THEME_MODULE_NAME = 'theme-';
+const PATH_REGISTRY_PUBLIC = '/registry/public';
+const DIRIGIBLE_THEME_DEFAULT = 'DIRIGIBLE_THEME_DEFAULT';
+const DEFAULT_THEME = 'default';
+const NAME_PARAM = 'name';
+const THEME_COOKIE = 'dirigible-theme';
+const DEFAULT_THEME_MODULE_NAME = 'theme-';
 
 rs.service()
 	.resource('')
-	.get(function (ctx, request, response) {
+	.get(function (_ctx, request, response) {
 		let theme = getCurrentTheme(request, response);
 		response.setContentType('text/plain');
 		response.print(theme);
 	})
 	.resource('themes')
-	.get(function (ctx, request, response) {
-		let legacy = ctx.queryParameters.legacy;
-		if (legacy === "false") legacy = false;
-		else legacy = true;
-		let themes = themesManager.getThemes(legacy);
+	.get(function (_ctx, _request, response) {
+		let themes = themesManager.getThemes();
 		response.setContentType('application/json');
 		response.print(JSON.stringify(themes));
 	})
