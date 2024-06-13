@@ -898,12 +898,12 @@ function isHanaDatabase(connection) {
 }
 
 function readBlobValue(value) {
-	return value.getBytes(1, value.length());
+	return value ? value.getBytes(1, value.length()) : value;
 }
 
 function createBlobValue(native, value) {
 	try {
-		let connection = native.getConnection();
+		let connection = native.getConnection(); // intentionally not closed
 		if (connection === null || connection === undefined) {
 			throw new Error("Can't create new 'Blob' value as the connection is null");
 		}
@@ -933,12 +933,12 @@ function createBlobValue(native, value) {
 }
 
 function readClobValue(value) {
-	return value.getSubString(1, value.length());
+	return value ? value.getSubString(1, value.length()) : value;
 }
 
 function createClobValue(native, value) {
 	try {
-		let connection = native.getConnection();
+		let connection = native.getConnection(); // intentionally not closed
 		if (connection === null || connection === undefined) {
 			throw new Error("Can't create new 'Clob' value as the connection is null");
 		}
@@ -968,12 +968,12 @@ function createClobValue(native, value) {
 }
 
 function readNClobValue(value) {
-	return value.getSubString(1, value.length());
+	return value ? value.getSubString(1, value.length()) : value;
 }
 
 function createNClobValue(native, value) {
 	try {
-		let connection = native.getConnection();
+		let connection = native.getConnection(); // intentionally not closed
 		if (connection === null || connection === undefined) {
 			throw new Error("Can't create new 'NClob' value as the connection is null");
 		}

@@ -101,7 +101,7 @@
 
 		<!-- Maven -->
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-		<maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+		<maven-javadoc-plugin.version>3.7.0</maven-javadoc-plugin.version>
 		<maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
 		<maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
 		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
@@ -109,7 +109,7 @@
 		<maven-jacoco-plugin.version>0.8.12</maven-jacoco-plugin.version>
 		<maven-spotbugs-plugin.version>4.8.5.0</maven-spotbugs-plugin.version>
 		<maven-formatter-plugin.version>2.23.0</maven-formatter-plugin.version>
-		<maven-exec-plugin.version>3.2.0</maven-exec-plugin.version>
+		<maven-exec-plugin.version>3.3.0</maven-exec-plugin.version>
 		<maven-git-commit-id-plugin.version>4.9.10</maven-git-commit-id-plugin.version>
 		<maven-license-plugin.version>4.5</maven-license-plugin.version>
 
@@ -120,7 +120,7 @@
 		<!-- Webjars -->
 		<webjars.bootstrap.version>5.3.2</webjars.bootstrap.version>
 		<webjars.locator.version>0.52</webjars.locator.version>
-		<webjars.locator.core.version>0.58</webjars.locator.core.version>
+		<webjars.locator.core.version>0.59</webjars.locator.core.version>
 
 		<!-- GraalVM -->
 		<graalvm.version>24.0.1</graalvm.version>
@@ -132,13 +132,13 @@
 		<commons-csv.version>1.11.0</commons-csv.version>
 
 		<apache-httpcomponents-httpmime.version>4.5.14</apache-httpcomponents-httpmime.version>
-		<apache-httpcomponents-httpclient.version>4.5.11</apache-httpcomponents-httpclient.version>
+		<apache-httpcomponents-httpclient.version>4.5.14</apache-httpcomponents-httpclient.version>
 		<apache-httpcomponents-httpasyncclient.version>4.1.5</apache-httpcomponents-httpasyncclient.version>
 
 		<jaxb.version>2.3.1</jaxb.version>
 		
 		<!-- Lucene -->
-		<lucene.version>9.10.0</lucene.version>
+		<lucene.version>9.11.0</lucene.version>
 		
 		<!-- Chemistry -->
 		<chemistry.version>1.1.0</chemistry.version>
@@ -178,22 +178,22 @@
 		
 		<!-- QLDB -->
 		<qldb.driver.version>2.3.1</qldb.driver.version>
-		<qldb.sdk.version>1.12.731</qldb.sdk.version>
+		<qldb.sdk.version>1.12.741</qldb.sdk.version>
 		
 		<!-- jETCD -->
-		<jetcd.core.version>0.7.7</jetcd.core.version>
+		<jetcd.core.version>0.8.2</jetcd.core.version>
 		
 		<!-- Various -->
 		<c3p0.version>0.10.1</c3p0.version>
-		<guava.version>33.2.0-jre</guava.version>
+		<guava.version>33.2.1-jre</guava.version>
 		<icu4j.version>75.1</icu4j.version>
-		<classgraph.version>4.8.172</classgraph.version>
+		<classgraph.version>4.8.173</classgraph.version>
 		<logcaptor.version>2.9.2</logcaptor.version>
 
 		<!-- UI -->
 		<jquery-ui.version>1.13.0</jquery-ui.version>
 		<sap-theming__theming-base-content.version>11.7.0</sap-theming__theming-base-content.version>
-		<chart.js.version>4.4.2</chart.js.version>
+		<chart.js.version>4.4.3</chart.js.version>
 		<sortablejs.version>1.15.2</sortablejs.version>
 		<fundamental-styles.version>0.30.2</fundamental-styles.version>
 		<angular-aria.version>1.8.2</angular-aria.version>
