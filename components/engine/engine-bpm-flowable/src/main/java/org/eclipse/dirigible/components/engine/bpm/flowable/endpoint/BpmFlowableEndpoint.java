@@ -9,18 +9,9 @@
  */
 package org.eclipse.dirigible.components.engine.bpm.flowable.endpoint;
 
-import static java.text.MessageFormat.format;
-import static org.eclipse.dirigible.components.engine.bpm.flowable.dto.ActionData.Action.*;
-import static org.eclipse.dirigible.components.engine.bpm.flowable.service.BpmService.DIRIGIBLE_BPM_INTERNAL_SKIP_STEP;
-import static org.eclipse.dirigible.components.engine.bpm.flowable.service.task.TaskQueryExecutor.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-import java.util.stream.Collectors;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dirigible.components.api.security.UserFacade;
 import org.eclipse.dirigible.components.base.endpoint.BaseEndpoint;
@@ -31,6 +22,7 @@ import org.eclipse.dirigible.components.engine.bpm.flowable.service.task.TaskQue
 import org.eclipse.dirigible.components.ide.workspace.service.WorkspaceService;
 import org.eclipse.dirigible.repository.api.RepositoryNotFoundException;
 import org.flowable.bpmn.model.BpmnModel;
+import org.flowable.common.engine.api.FlowableObjectNotFoundException;
 import org.flowable.engine.*;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.repository.ProcessDefinition;
@@ -51,9 +43,19 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.text.MessageFormat.format;
+import static org.eclipse.dirigible.components.engine.bpm.flowable.dto.ActionData.Action.RETRY;
+import static org.eclipse.dirigible.components.engine.bpm.flowable.dto.ActionData.Action.SKIP;
+import static org.eclipse.dirigible.components.engine.bpm.flowable.dto.TaskActionData.TaskAction.*;
+import static org.eclipse.dirigible.components.engine.bpm.flowable.service.BpmService.DIRIGIBLE_BPM_INTERNAL_SKIP_STEP;
+import static org.eclipse.dirigible.components.engine.bpm.flowable.service.task.TaskQueryExecutor.Type;
 
 /**
  * Front facing REST service serving the BPM related resources and operations.
@@ -89,34 +91,6 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
     @Autowired
     private TaskQueryExecutor taskQueryExecutor;
 
-
-    /**
-     * Gets the bpm provider flowable.
-     *
-     * @return the bpm provider flowable
-     */
-    public BpmProviderFlowable getBpmProviderFlowable() {
-        return bpmProviderFlowable;
-    }
-
-    /**
-     * Gets the bpm service.
-     *
-     * @return the bpm service
-     */
-    public BpmService getBpmService() {
-        return bpmService;
-    }
-
-    /**
-     * Gets the workspace service.
-     *
-     * @return the workspace service
-     */
-    public WorkspaceService getWorkspaceService() {
-        return workspaceService;
-    }
-
     /**
      * Get the BPM model source.
      *
@@ -139,6 +113,15 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, error);
         }
         return ResponseEntity.ok(model);
+    }
+
+    /**
+     * Gets the bpm service.
+     *
+     * @return the bpm service
+     */
+    public BpmService getBpmService() {
+        return bpmService;
     }
 
     /**
@@ -180,6 +163,14 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
         return ResponseEntity.ok(getWorkspaceService().getURI(workspace, project, path));
     }
 
+    /**
+     * Gets the workspace service.
+     *
+     * @return the workspace service
+     */
+    public WorkspaceService getWorkspaceService() {
+        return workspaceService;
+    }
 
     /**
      * Get the Stencil-Set.
@@ -272,14 +263,8 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
         return ResponseEntity.ok(variables);
     }
 
-    /**
-     * Gets the processes keys.
-     *
-     * @param id the id
-     * @return the processes keys
-     */
     @GetMapping(value = "/bpm-processes/instance/{id}")
-    public ResponseEntity<ProcessInstanceData> getProcessesInstances(@PathVariable("id") String id) {
+    public ResponseEntity<ProcessInstanceData> getProcessInstance(@PathVariable("id") String id) {
         return ResponseEntity.ok(getBpmService().getProcessInstanceById(id));
     }
 
@@ -312,15 +297,6 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
         return ResponseEntity.ok(taskDTOS);
     }
 
-    @GetMapping(value = "/bpm-processes/tasks")
-    public ResponseEntity<List<TaskDTO>> getTasks(@RequestParam(value = "type", required = false) String type) {
-        List<TaskDTO> taskDTOS = taskQueryExecutor.findTasks(extractPrincipalType(type))
-                                                  .stream()
-                                                  .map(this::mapToDTO)
-                                                  .collect(Collectors.toList());
-        return ResponseEntity.ok(taskDTOS);
-    }
-
     private static Type extractPrincipalType(String type) {
         Type principalType;
         try {
@@ -329,30 +305,6 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
             principalType = Type.ASSIGNEE;
         }
         return principalType;
-    }
-
-    @PostMapping(value = "/bpm-processes/tasks/{id}")
-    public ResponseEntity<String> executeTaskAction(@PathVariable("id") String id, @RequestBody TaskActionData actionData) {
-        TaskService taskService = getTaskService();
-
-        if (TaskActionData.TaskAction.CLAIM.getActionName()
-                                           .equals(actionData.getAction())) {
-            taskService.claim(id, UserFacade.getName());
-        } else if (TaskActionData.TaskAction.UNCLAIM.getActionName()
-                                                    .equals(actionData.getAction())) {
-            taskService.unclaim(id);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                                 .body("Invalid action id provided [" + actionData.getAction() + "]");
-        }
-        return ResponseEntity.ok()
-                             .build();
-    }
-
-    private TaskService getTaskService() {
-        return bpmService.getBpmProviderFlowable()
-                         .getProcessEngine()
-                         .getTaskService();
     }
 
     private TaskDTO mapToDTO(Task task) {
@@ -374,6 +326,84 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
                                             .filter(Objects::nonNull)
                                             .collect(Collectors.joining(",")));
         return dto;
+    }
+
+    private TaskService getTaskService() {
+        return bpmService.getBpmProviderFlowable()
+                         .getProcessEngine()
+                         .getTaskService();
+    }
+
+    @GetMapping(value = "/bpm-processes/tasks")
+    public ResponseEntity<List<TaskDTO>> getTasks(@RequestParam(value = "type", required = false) String type) {
+        List<TaskDTO> taskDTOS = taskQueryExecutor.findTasks(extractPrincipalType(type))
+                                                  .stream()
+                                                  .map(this::mapToDTO)
+                                                  .collect(Collectors.toList());
+        return ResponseEntity.ok(taskDTOS);
+    }
+
+    @GetMapping(value = "/bpm-processes/tasks/{taskId}/variables")
+    public ResponseEntity<?> getTaskVariables(@PathVariable("taskId") String taskId) {
+        TaskService taskService = getTaskService();
+
+        try {
+            Map<String, Object> variables = taskService.getVariables(taskId);
+            TaskVariablesDTO taskVariables = new TaskVariablesDTO(variables);
+
+            return ResponseEntity.ok(taskVariables);
+        } catch (FlowableObjectNotFoundException ex) {
+            logger.debug("Missing task with id [{}]", taskId, ex);
+            return ResponseEntity.notFound()
+                                 .build();
+        }
+    }
+
+    @PostMapping(value = "/bpm-processes/tasks/{id}")
+    public ResponseEntity<String> executeTaskAction(@PathVariable("id") String id, @RequestBody TaskActionData actionData) {
+        verifyCurrentUserHasPermissionForTask(id);
+
+        final TaskService taskService = getTaskService();
+
+        if (CLAIM.getActionName()
+                 .equals(actionData.getAction())) {
+            taskService.claim(id, UserFacade.getName());
+        } else if (UNCLAIM.getActionName()
+                          .equals(actionData.getAction())) {
+            taskService.unclaim(id);
+        } else if (COMPLETE.getActionName()
+                           .equals(actionData.getAction())) {
+            taskService.complete(id, actionData.getData());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                                 .body("Invalid action id provided [" + actionData.getAction() + "]");
+        }
+        return ResponseEntity.ok()
+                             .build();
+    }
+
+    private void verifyCurrentUserHasPermissionForTask(String id) {
+        Set<String> userTaskIds = getUserTaskIds();
+        if (!userTaskIds.contains(id)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Current user [" + UserFacade.getName() + "] doesn't have permissions for task with id " + id);
+        }
+    }
+
+    private Set<String> getUserTaskIds() {
+        Set<String> userRolesTasks = taskQueryExecutor.findTasks(Type.CANDIDATE_GROUPS)
+                                                      .stream()
+                                                      .map(Task::getId)
+                                                      .collect(Collectors.toSet());
+
+        Set<String> userAssignedTasks = taskQueryExecutor.findTasks(Type.ASSIGNEE)
+                                                         .stream()
+                                                         .map(Task::getId)
+                                                         .collect(Collectors.toSet());
+
+        Set<String> allTasks = new HashSet<>(userRolesTasks);
+        allTasks.addAll(userAssignedTasks);
+        return Collections.unmodifiableSet(allTasks);
     }
 
     /**
@@ -462,7 +492,7 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
     @GetMapping(value = "/bpm-processes/diagram/definition/{processDefinitionKey}", produces = "image/png")
     public ResponseEntity<byte[]> getProcessDefinitionImage(@PathVariable("processDefinitionKey") String processDefinitionKey)
             throws IOException {
-        ProcessEngine processEngine = ((ProcessEngine) getBpmProviderFlowable().getProcessEngine());
+        ProcessEngine processEngine = getBpmProviderFlowable().getProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
 
         ProcessDefinition process = repositoryService.createProcessDefinitionQuery()
@@ -483,6 +513,15 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
     }
 
     /**
+     * Gets the bpm provider flowable.
+     *
+     * @return the bpm provider flowable
+     */
+    public BpmProviderFlowable getBpmProviderFlowable() {
+        return bpmProviderFlowable;
+    }
+
+    /**
      * Gets the process image.
      *
      * @param processInstanceId the process instance id
@@ -491,7 +530,7 @@ public class BpmFlowableEndpoint extends BaseEndpoint {
      */
     @GetMapping(value = "/bpm-processes/diagram/instance/{processInstanceId}", produces = "image/png")
     public ResponseEntity<byte[]> getProcessInstanceImage(@PathVariable("processInstanceId") String processInstanceId) throws IOException {
-        ProcessEngine processEngine = ((ProcessEngine) getBpmProviderFlowable().getProcessEngine());
+        ProcessEngine processEngine = getBpmProviderFlowable().getProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
         ProcessEngineConfiguration processEngineConfiguration = processEngine.getProcessEngineConfiguration();
         RuntimeService runtimeService = processEngine.getRuntimeService();

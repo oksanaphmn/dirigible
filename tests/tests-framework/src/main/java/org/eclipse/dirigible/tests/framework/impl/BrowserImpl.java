@@ -94,6 +94,11 @@ class BrowserImpl implements Browser {
     }
 
     @Override
+    public void enterTextInElementById(String elementId, String text) {
+        enterTextInElementByAttributePattern(HtmlElementType.INPUT, HtmlAttribute.ID, elementId, text);
+    }
+
+    @Override
     public void enterTextInElementByAttributePattern(HtmlElementType elementType, HtmlAttribute attribute, String pattern, String text) {
         SelenideElement element = getElementByAttributePattern(elementType, attribute, pattern);
         handleElementInAllFrames(element, e -> {
@@ -210,6 +215,11 @@ class BrowserImpl implements Browser {
         Selenide.refresh();
     }
 
+    @Override
+    public void clearCookies() {
+        Selenide.clearBrowserCookies();
+    }
+
     private boolean elementExists(SelenideElement element, int checkSeconds) {
         return elementExists(element, 1000L * checkSeconds);
     }
@@ -245,6 +255,13 @@ class BrowserImpl implements Browser {
         String textPattern = Pattern.quote(text);
         SelenideElement element = getElementByAttributeAndTextPattern(elementType, textPattern);
         handleElementInAllFrames(element, e -> e.doubleClick());
+    }
+
+    @Override
+    public void clickOnElementContainingText(HtmlElementType elementType, String text) {
+        String textPattern = Pattern.quote(text);
+        SelenideElement element = getElementByAttributeAndTextPattern(elementType, textPattern);
+        handleElementInAllFrames(element, e -> e.click());
     }
 
     @Override

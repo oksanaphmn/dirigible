@@ -17,6 +17,9 @@ import org.eclipse.dirigible.commons.config.DirigibleConfig;
 import org.eclipse.dirigible.components.base.helpers.JsonHelper;
 import org.eclipse.dirigible.repository.api.IRepository;
 import org.eclipse.dirigible.tests.DirigibleTestTenant;
+import org.eclipse.dirigible.tests.EdmView;
+import org.eclipse.dirigible.tests.IDE;
+import org.eclipse.dirigible.tests.Workbench;
 import org.eclipse.dirigible.tests.awaitility.AwaitilityExecutor;
 import org.eclipse.dirigible.tests.framework.Browser;
 import org.eclipse.dirigible.tests.framework.BrowserFactory;
@@ -42,28 +45,29 @@ import static org.hamcrest.Matchers.hasSize;
 @Lazy
 @Component
 public class TestProject {
-    public static final String UI_HOME_PATH = "/services/web/dirigible-test-project/gen/index.html";
-    public static final String BOOKS_SERVICE_PATH = "/services/ts/dirigible-test-project/gen/api/Books/BookService.ts";
-    public static final String EDM_FILE_NAME = "edm.edm";
-    public static final String READERS_ODATA_ENTITY_PATH = "/odata/v2/Readers";
-    public static final String READERS_VIEW_SERVICE_PATH = "/services/ts/dirigible-test-project/views/ReaderViewService.ts";
-    public static final String PROJECT_ROOT_FOLDER = "dirigible-test-project";
-    public static final String DOCUMENTS_SERVIE_PATH = "/services/ts/dirigible-test-project/cmis/DocumentService.ts/documents";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(TestProject.class);
+
+    private static final String UI_HOME_PATH = "/services/web/dirigible-test-project/gen/edm/index.html";
+    private static final String BOOKS_SERVICE_PATH = "/services/ts/dirigible-test-project/gen/edm/api/Books/BookService.ts";
+    private static final String EDM_FILE_NAME = "edm.edm";
+    private static final String READERS_ODATA_ENTITY_PATH = "/odata/v2/Readers";
+    private static final String READERS_VIEW_SERVICE_PATH = "/services/ts/dirigible-test-project/views/ReaderViewService.ts";
+    private static final String PROJECT_ROOT_FOLDER = "dirigible-test-project";
+    private static final String DOCUMENTS_SERVIE_PATH = "/services/ts/dirigible-test-project/cmis/DocumentService.ts/documents";
+
     private static final String PROJECT_RESOURCES_PATH = "dirigible-test-project";
     private static final String UI_PROJECT_TITLE = "Dirigible Test Project";
+
     private final IRepository dirigibleRepo;
     private final BrowserFactory browserFactory;
-    private final Dirigible dirigible;
+    private final IDE dirigible;
     private final EdmView edmView;
-
     private final RestAssuredExecutor restAssuredExecutor;
-
     private final LogsAsserter testJobLogsAsserter;
-
     private final LogsAsserter eventListenerLogsAsserter;
 
-    public TestProject(IRepository dirigibleRepo, BrowserFactory browserFactory, Dirigible dirigible, EdmView edmView,
+    public TestProject(IRepository dirigibleRepo, BrowserFactory browserFactory, IDE dirigible, EdmView edmView,
             RestAssuredExecutor restAssuredExecutor) {
         this.dirigibleRepo = dirigibleRepo;
         this.browserFactory = browserFactory;
@@ -80,7 +84,7 @@ public class TestProject {
 
         dirigible.openHomePage();
 
-        DirigibleWorkbench workbench = dirigible.openWorkbench();
+        Workbench workbench = dirigible.openWorkbench();
         workbench.expandProject(PROJECT_ROOT_FOLDER);
         workbench.openFile(EDM_FILE_NAME);
 
@@ -127,7 +131,7 @@ public class TestProject {
         Browser browser = browserFactory.createByHost(tenant.getHost());
         browser.openPath(UI_HOME_PATH);
 
-        Dirigible dirigible = new Dirigible(browser, tenant.getUsername(), tenant.getPassword());
+        IDE dirigible = new IDE(browser, restAssuredExecutor, tenant.getUsername(), tenant.getPassword());
         boolean forceLogin = !tenant.isDefaultTenant();
         dirigible.login(forceLogin);
 

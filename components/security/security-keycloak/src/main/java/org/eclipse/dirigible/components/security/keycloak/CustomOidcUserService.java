@@ -12,13 +12,13 @@ package org.eclipse.dirigible.components.security.keycloak;
 import org.eclipse.dirigible.commons.config.DirigibleConfig;
 import org.eclipse.dirigible.components.base.http.roles.Roles;
 import org.eclipse.dirigible.components.base.tenant.TenantContext;
+import org.eclipse.dirigible.components.base.util.AuthoritiesUtil;
 import org.eclipse.dirigible.components.tenants.domain.User;
 import org.eclipse.dirigible.components.tenants.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -75,7 +74,7 @@ public class CustomOidcUserService extends OidcUserService {
 
         User user = getTenantUser(oidcUser);
         Set<String> roleNames = getRoleNames(user);
-        Set<GrantedAuthority> roleAuthorities = toAuthorities(roleNames);
+        Set<GrantedAuthority> roleAuthorities = AuthoritiesUtil.toAuthorities(roleNames);
 
         return createOidcUser(userRequest, oidcUser, roleAuthorities);
 
@@ -126,19 +125,6 @@ public class CustomOidcUserService extends OidcUserService {
                          .collect(Collectors.toSet());
         }
         return userService.getUserRoleNames(user);
-    }
-
-    /**
-     * To authorities.
-     *
-     * @param roleNames the role names
-     * @return the sets the
-     */
-    private Set<GrantedAuthority> toAuthorities(Collection<String> roleNames) {
-        return roleNames.stream()
-                        .map(r -> new SimpleGrantedAuthority(r))
-                        .collect(Collectors.toSet());
-
     }
 
     /**
