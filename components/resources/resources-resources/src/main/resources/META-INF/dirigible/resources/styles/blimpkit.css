@@ -1,0 +1,738 @@
+:root {
+  --bk-font-regular: url("/webjars/sap-theming__theming-base-content/content/Base/baseLib/baseTheme/fonts/72-Regular-full.woff2") format("woff2");
+  --bk-font-bold: url("/webjars/sap-theming__theming-base-content/content/Base/baseLib/baseTheme/fonts/72-Bold-full.woff2") format("woff2");
+  --bk-font-light: url("/webjars/sap-theming__theming-base-content/content/Base/baseLib/baseTheme/fonts/72-Light-full.woff2") format("woff2");
+  --bk-font-icons: url("/webjars/sap-theming__theming-base-content/content/Base/baseLib/sap_horizon/fonts/SAP-icons.woff2") format("woff2");
+  --bk-font-icons-tnt: url("/webjars/sap-theming__theming-base-content/content/Base/baseLib/baseTheme/fonts/SAP-icons-TNT.woff2") format("woff2");
+  --bk-font-icons-business: url("/webjars/sap-theming__theming-base-content/content/Base/baseLib/baseTheme/fonts/BusinessSuiteInAppSymbols.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "72";
+  src: var(--bk-font-regular);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "72";
+  src: var(--bk-font-bold);
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "72";
+  src: var(--bk-font-light);
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SAP-icons";
+  src: var(--bk-font-icons);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BusinessSuiteInAppSymbols";
+  src: var(--bk-font-icons-business);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SAP-icons-TNT";
+  src: var(--bk-font-icons-tnt);
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background: transparent;
+  font-size: var(--sapFontSize, .875rem);
+  line-height: var(--sapContent_LineHeight, 1.4);
+  color: var(--sapTextColor, #32363a);
+  font-family: var(--sapFontFamily, "72", "72full", Arial, Helvetica, sans-serif);
+}
+
+body.bk-dark {
+  background: var(--sapBackgroundColor, #1c2228);
+  color: var(--sapTextColor, #fafafa);
+}
+
+body.bk-light {
+  background: var(--sapBackgroundColor, #f7f7f7);
+  color: var(--sapTextColor, #32363a);
+}
+
+.bk-hidden {
+  display: none;
+}
+
+.bk-invisible {
+  visibility: hidden;
+}
+
+.bk-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 300;
+}
+
+.bk-pre-wrap {
+  white-space: pre-wrap;
+}
+
+iframe {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+[ng\:cloak],
+[ng-cloak],
+.ng-cloak {
+  display: none !important;
+}
+
+ng-transclude:empty {
+  display: none;
+}
+
+/* Backdrop, used internally */
+
+.bk-backdrop {
+  display: none;
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+
+.bk-backdrop--active .bk-backdrop {
+  display: block;
+}
+
+.bk-backdrop--active .fd-popover__control,
+.fd-button-split {
+  /* Just below the dialogs, just above the backdrop */
+  position: relative;
+  z-index: 210;
+}
+
+.bk-backdrop--active .fd-popover__body,
+.fd-menu {
+  z-index: 215;
+}
+
+.bk-backdrop--active .fd-menu {
+  position: relative;
+}
+
+/* Icon fixes */
+.fd-list__icon [class*="sap-icon"]:first-child,
+.fd-list__icon[class*="sap-icon"]:first-child {
+  margin-left: -0.96rem;
+}
+
+/* SVG icon support */
+i.bk-icon--svg {
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+i[class~="sap-icon"] ng-include {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+i.bk-icon--svg svg {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: var(--fdVerticalNav_Icon_Color, #6a6d70);
+  fill: var(--fdVerticalNav_Icon_Color, #6a6d70);
+  width: 1rem;
+  height: 1rem;
+  overflow: visible;
+}
+
+i.bk-icon--svg.bk-icon--svg-lg svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.bk-icon--svg-lg::before {
+  font-size: 1.25rem;
+}
+
+/* Vertical navigation svg icon */
+.fd-list__navigation-item--indicated i.bk-icon--svg svg {
+  fill: var(--sapSelectedColor, #0854a0);
+  color: var(--sapSelectedColor, #0854a0);
+}
+
+/* General helper classes */
+i[rotate="90"]:not(.fd-list__icon) {
+  transform: rotate(90deg);
+}
+
+i.fd-list__icon[rotate="90"]::before {
+  transform: rotate(90deg);
+}
+
+.bk-opacity-7 {
+  opacity: .7;
+}
+
+.bk-float-right {
+  float: right;
+}
+
+.bk-float-left {
+  float: left;
+}
+
+.bk-scroll-hidden {
+  overflow: hidden;
+}
+
+.bk-fill-parent {
+  width: 100%;
+  height: 100%;
+}
+
+.bk-full-height {
+  height: 100%;
+}
+
+.bk-full-width {
+  width: 100%;
+}
+
+.bk-vbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.bk-vbox>.fd-container {
+  -webkit-box-flex: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  -ms-flex-preferred-size: auto;
+  flex-basis: auto;
+}
+
+.bk-vbox>.fd-title {
+  overflow: inherit;
+}
+
+.bk-vbox>.fd-toolbar {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.bk-hbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.bk-hbox>.fd-container {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+
+.bk-hbox>.fd-title {
+  overflow: inherit;
+}
+
+.bk-hbox>.fd-toolbar {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.bk-flex-end {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.bk-flex-between {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: space-between;
+}
+
+.bk-flex-content-center {
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.bk-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.bk-center__vertical {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.bk-center__horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.bk-contain-image {
+  -o-object-fit: contain;
+  object-fit: contain;
+  margin: auto;
+  max-width: 100%;
+}
+
+.bk-stretch {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  min-height: 0;
+}
+
+.bk-flex--nowrap {
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.bk-box--stretch-items {
+  justify-content: stretch;
+}
+
+.bk-box--stretch-items>* {
+  width: 100%;
+}
+
+.bk-box--gap {
+  gap: .5rem;
+}
+
+.bk-no-border {
+  border: none;
+}
+
+.bk-no-border-top {
+  border-top: none;
+}
+
+.bk-no-border-bottom {
+  border-bottom: none;
+}
+
+.bk-no-border-left {
+  border-left: none;
+}
+
+.bk-no-border-right {
+  border-right: none;
+}
+
+.bk-list-border {
+  border: solid var(--sapList_BorderWidth, 0.0625rem) var(--sapList_BorderColor, #e5e5e5);
+}
+
+.bk-list-border-top {
+  border-top: solid var(--sapList_BorderWidth, 0.0625rem) var(--sapList_BorderColor, #e5e5e5);
+}
+
+.bk-list-border-bottom {
+  border-bottom: solid var(--sapList_BorderWidth, 0.0625rem) var(--sapList_BorderColor, #e5e5e5);
+}
+
+.bk-list-border-left {
+  border-left: solid var(--sapList_BorderWidth, 0.0625rem) var(--sapList_BorderColor, #e5e5e5);
+}
+
+.bk-list-border-right {
+  border-right: solid var(--sapList_BorderWidth, 0.0625rem) var(--sapList_BorderColor, #e5e5e5);
+}
+
+.bk-border-bottom {
+  border-bottom: solid 0.0625rem var(--sapGroup_TitleBorderColor, #d9d9d9);
+}
+
+.bk-border-top {
+  border-top: solid 0.0625rem var(--sapGroup_TitleBorderColor, #d9d9d9);
+}
+
+.bk-border-left {
+  border-left: solid 0.0625rem var(--sapGroup_TitleBorderColor, #d9d9d9);
+}
+
+.bk-border-right {
+  border-right: solid 0.0625rem var(--sapGroup_TitleBorderColor, #d9d9d9);
+}
+
+.bk-page-header-bg {
+  background: var(--sapPageHeader_Background, #fff);
+}
+
+.bk-padding-top--none {
+  padding-top: 0 !important;
+}
+
+.bk-padding-end--none {
+  padding-right: 0 !important;
+}
+
+.bk-padding-bottom--none {
+  padding-bottom: 0 !important;
+}
+
+.bk-padding-begin--none {
+  padding-left: 0 !important;
+}
+
+.bk-checkered-bg {
+  background-image:
+    -o-linear-gradient(45deg, #949494 25%, transparent 25%, transparent 75%, #949494 75%),
+    -o-linear-gradient(45deg, #949494 25%, #c1c1c1 25%, #c1c1c1 75%, #949494 75%);
+  background-image:
+    linear-gradient(45deg, #949494 25%, transparent 25%, transparent 75%, #949494 75%),
+    linear-gradient(45deg, #949494 25%, #c1c1c1 25%, #c1c1c1 75%, #949494 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 8px;
+}
+
+.bk-popover-text--multiline .fd-text {
+  white-space: normal;
+}
+
+.bk-font--italic {
+  font-style: italic;
+}
+
+.bk-restrict-width--sm {
+  max-width: 600px;
+}
+
+.bk-restrict-width {
+  max-width: 1024px;
+}
+
+.bk-restrict-width--lg {
+  max-width: 1280px;
+}
+
+.bk-restrict-width--xl {
+  max-width: 1600px;
+}
+
+/* fd-tile-container additions */
+.fd-tile-container--buttons>.fd-button {
+  margin-right: .5rem;
+}
+
+.fd-tile-container--buttons>.fd-button:last-child {
+  margin-right: 0;
+}
+
+/* fd-page helper classes */
+.bk-page__content-card {
+  padding: 2rem;
+}
+
+.bk-page__content-card>.fd-card {
+  margin: auto;
+  max-width: 1024px;
+  min-height: auto;
+}
+
+/* fd-wizard helper classes */
+.bk-flex--wizard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+/* fd-icon-tab-bar additions */
+.fd-icon-tab-bar__item--overflow+.bk-icon-tab-bar__item--buttons {
+  margin: 0 0 0 .5rem;
+}
+
+.bk-icon-tab-bar__item--buttons {
+  white-space: nowrap;
+}
+
+:not(.fd-icon-tab-bar__item--overflow)+.bk-icon-tab-bar__item--buttons-right {
+  margin-left: auto;
+}
+
+.bk-icon-tab-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bk-icon-tab-bar>.bk-icon-tab-bar-panels,
+.bk-icon-tab-bar>.bk-icon-tab-bar-panels>section {
+  height: 100%;
+  min-height: 0;
+}
+
+.bk-icon-tab-bar-tab-hidden {
+  visibility: hidden !important;
+  position: absolute !important;
+}
+
+.bk-icon-tab-hint {
+  opacity: .75;
+  margin-left: 0.5em;
+  white-space: pre;
+  font-size: var(--sapFontSmallSize, .9em);
+  font-style: italic;
+}
+
+/* fd-input additions */
+
+.fd-input[type="color"] {
+  padding: 0;
+}
+
+.fd-input[type="color"]::-moz-color-swatch {
+  border: none;
+}
+
+.fd-input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 0;
+}
+
+.fd-input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
+.bk-form-item--horizontal>.fd-popover {
+  flex: 1;
+}
+
+/* Tool header fixes */
+.fd-button--tool-header {
+  width: auto;
+  max-width: none;
+}
+
+.fd-tool-header__product-name {
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
+/* Menu fixes and additions */
+.bk-submenu--left {
+  margin: .25rem 0 0 .25rem;
+}
+
+.bk-menu__sublist--overflow {
+  overflow-y: auto;
+  max-height: 264px;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  background-color: var(--sapList_Background, #fff);
+}
+
+.bk-menu__sublist--overflow .fd-menu__separator {
+  padding-top: .0625rem;
+}
+
+/* Form label fix for 0.30.2 */
+.fd-form-label--colon {
+  padding-right: .25rem;
+}
+
+.fd-container.fd-form-layout-grid-container .fd-row .fd-col-md--2>.fd-form-label.fd-form-label--required.fd-form-label--colon {
+  padding-right: .75rem;
+}
+
+/* fd-form-layout-grid-container fixes */
+.fd-container.fd-form-layout-grid-container .fd-row .fd-col {
+  overflow: visible;
+}
+
+.fd-container.fd-form-layout-grid-container .fd-popover__body {
+  z-index: 210;
+}
+
+.fd-container.fd-form-layout-grid-container .fd-input-group {
+  margin: 0;
+}
+
+.fd-form-group.fd-container.fd-form-layout-grid-container ng-transclude {
+  width: 100%;
+}
+
+.fd-container.fd-form-layout-grid-container .fd-row .fd-col .fd-popover {
+  width: 100%;
+}
+
+/* fd-form-item fixes */
+.fd-popover__control.is-expanded>*,
+.fd-popover__control[aria-expanded="true"]>* {
+  margin: var(--fdInput_Field_Margin, .25rem 0);
+}
+
+/* Dialog padding fixes */
+.fd-dialog__body.fd-scrollbar:not(.fd-dialog__body--no-vertical-padding) {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.fd-container.fd-form-layout-grid-container .fd-row .fd-col .fd-select__control {
+  margin: 0;
+}
+
+/* Combobox and Select (when in toolbar) margin fixes */
+.fd-toolbar .fd-popover .fd-input-group {
+  margin: 0;
+}
+
+/* Table fixes and additions*/
+.fd-table .fd-table__cell .fd-select__control {
+  margin: 0;
+}
+
+.fd-table--no-outer-border .fd-table__cell--no-data,
+.bk-table--no-outer-vertical-borders .fd-table__cell--no-data,
+.bk-table--bottom-outer-border .fd-table__cell--no-data {
+  border: none;
+  border-style: none !important;
+}
+
+.bk-table--no-outer-horizontal-borders {
+  border-top: hidden;
+  border-bottom: hidden;
+}
+
+.bk-table--no-outer-vertical-borders {
+  border-left: hidden;
+  border-right: hidden;
+}
+
+.bk-table__header-sticky th.fd-table__cell {
+  position: sticky;
+  top: 0;
+  -webkit-box-shadow: inset 0 1px 0 var(--sapList_BorderColor), inset 0 -1px 0 var(--sapList_BorderColor);
+  box-shadow: inset 0 1px 0 var(--sapList_BorderColor), inset 0 -1px 0 var(--sapList_BorderColor);
+  border-bottom: hidden;
+  border-top: hidden;
+  z-index: 1;
+}
+
+.bk-table--no-outer-horizontal-borders .bk-table__header-sticky th.fd-table__cell,
+.fd-table--no-outer-border .bk-table__header-sticky th.fd-table__cell {
+  -webkit-box-shadow: inset 0 1px 0 var(--sapList_HeaderBackground), inset 0 -1px 0 var(--sapList_BorderColor);
+  box-shadow: inset 0 1px 0 var(--sapList_HeaderBackground), inset 0 -1px 0 var(--sapList_BorderColor);
+}
+
+.bk-table__footer-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+}
+
+/* Message page fixes */
+
+.fd-message-page {
+  height: auto;
+  min-height: 100%;
+}
+
+/* Link fixes */
+.fd-link--emphasized {
+  font-weight: bold;
+}
+
+.fd-link .sap-icon--s:first-child {
+  margin-right: .313rem;
+}
+
+.fd-link .sap-icon--s:last-child {
+  margin-left: .313rem;
+}
+
+/* Tokenizer fixes */
+.fd-tokenizer .fd-tokenizer__indicator {
+  margin-right: .3125rem;
+}

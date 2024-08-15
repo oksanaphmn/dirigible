@@ -106,12 +106,12 @@ function getLocations(scriptId) {
             "/split.js/1.6.5/dist/split.min.js",
             "/resources-core/core/uri-builder.js",
             "/resources-core/core/message-hub.js",
-            "/resources-core/ui/common/user.js",
-            "/resources-core/ui/common/brand.js",
-            "/resources-core/ui/common/messageHub.js",
-            "/resources-core/ui/common/theming.js",
-            "/resources-core/ui/common/extensions.js",
-            "/resources-core/ui/common/view.js",
+            "/resources-core/ui/platform/user.js",
+            "/resources-core/ui/platform/brand.js",
+            "/resources-core/ui/platform/messageHub.js",
+            "/resources-core/ui/platform/theming.js",
+            "/resources-core/ui/platform/extensions.js",
+            "/resources-core/ui/platform/view.js",
             "/resources-core/ui/blimpkit/widgets.js",
         ]
         switch (scriptId) {

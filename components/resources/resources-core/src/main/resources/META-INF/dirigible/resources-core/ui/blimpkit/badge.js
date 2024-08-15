@@ -9,17 +9,9 @@
  * SPDX-FileCopyrightText: Eclipse Dirigible contributors
  * SPDX-License-Identifier: EPL-2.0
  */
-exports.getTheme = function () {
-	return {
-		id: 'quartz-light',
-		module: 'theme-quartz-light',
-		name: 'Quartz Light',
-		type: 'light',
-		version: 8,
-		oldThemeId: 'fiori',
-		links: [
-			'/webjars/sap-theming__theming-base-content/11.7.0/content/Base/baseLib/sap_fiori_3/css_variables.css',
-			'/webjars/fundamental-styles/0.30.2/dist/theming/sap_fiori_3.css',
-		]
-	};
-};
+blimpkit.directive('bkBadge', () => ({
+    restrict: 'EA',
+    replace: true,
+    transclude: true,
+    template: '<div class="fd-badge" ng-transclude></div>'
+}));

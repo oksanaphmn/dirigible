@@ -5,9 +5,18 @@
  */
 const widgetsView = angular.module('widgets', ['ideUI', 'ideView']);
 
+// Setting the messageHub prefix
 widgetsView.config(["messageHubProvider", function (messageHubProvider) {
     messageHubProvider.eventIdPrefix = 'template';
 }]);
+
+// AngularJS filter used in the table pagination
+widgetsView.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
 
 // Initialize controller
 widgetsView.controller('WidgetsViewController', ['$scope', 'messageHub', function ($scope, messageHub) {

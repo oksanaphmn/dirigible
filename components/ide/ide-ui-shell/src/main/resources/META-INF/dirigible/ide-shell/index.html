@@ -16,7 +16,6 @@
 
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="data:;base64,iVBORw0KGgo=" brand-icon />
         <title brand-title></title>
@@ -31,24 +30,26 @@
         <script type="text/javascript" src="/services/web/ide-branding/branding.js"></script>
         <script type="text/javascript" src="/services/web/resources-core/core/uri-builder.js"></script>
         <script type="text/javascript" src="/services/web/resources-core/core/message-hub.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/common/user.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/common/brand.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/common/messageHub.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/common/theming.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/common/extensions.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/common/view.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/user.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/brand.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/messageHub.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/theming.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/extensions.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/view.js"></script>
         <script type="text/javascript" src="/services/web/resources-core/ui/blimpkit/widgets.js"></script>
         <script type="text/javascript" src="/webjars/angularjs/1.8.2/angular-cookies.min.js"></script>
-        <script type="text/javascript" src="/services/web/resources-core/ui/shell/core.js"></script>
+        <script type="text/javascript" src="/services/web/resources-core/ui/platform/shell.js"></script>
         <link type="text/css" rel="stylesheet"
             href="/services/js/resources-core/services/loader.js?v=2&id=platform-shell-css" />
     </head>
 
     <body>
         <shell-header></shell-header>
+        <!-- <perspective-container no-statusbar="true"></perspective-container> -->
         <perspective-container></perspective-container>
-        <shell-dialogs></shell-dialogs>
         <status-bar></status-bar>
+
+        <dialogs></dialogs>
 
         <script type="text/javascript">
             angular.module('shell', ['platformShell', 'blimpKit'])
