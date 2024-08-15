@@ -82,7 +82,7 @@ function processScriptRequest(scriptId) {
 function getLocations(scriptId) {
     if (scriptVersion) {
         const baseJs = [
-            '/jquery/3.6.0/jquery.min.js',
+            '/jquery/3.7.1/jquery.min.js',
             '/angularjs/1.8.2/angular.min.js',
             '/angularjs/1.8.2/angular-resource.min.js',
             '/angular-aria/1.8.2/angular-aria.min.js',
@@ -133,7 +133,7 @@ function getLocations(scriptId) {
             '/resources-core/ui/blimpkit/wizard.js'
         ];
         const viewCss = [
-            '/fundamental-styles/0.30.2/dist/fundamental-styles.css',
+            '/fundamental-styles/0.37.4/dist/fundamental-styles.css',
             '/resources/styles/blimpkit.css',
         ];
         switch (scriptId) {
@@ -177,7 +177,7 @@ function getLocations(scriptId) {
         }
     } else {
         const baseJs = [
-            '/jquery/3.6.0/jquery.min.js',
+            '/jquery/3.7.1/jquery.min.js',
             '/angularjs/1.8.2/angular.min.js',
             '/angularjs/1.8.2/angular-resource.min.js',
             '/angular-aria/1.8.2/angular-aria.min.js',
@@ -191,7 +191,7 @@ function getLocations(scriptId) {
             '/resources-core/ui/view.js',
         ];
         const viewCss = [
-            '/fundamental-styles/0.30.2/dist/fundamental-styles.css',
+            '/fundamental-styles/0.37.4/dist/fundamental-styles.css',
             '/resources/styles/core.css',
             '/resources/styles/widgets.css',
         ];

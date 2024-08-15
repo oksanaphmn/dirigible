@@ -97,7 +97,7 @@
 		<module>ide/ide-ui-database-menu</module>
 		<module>ide/ide-ui-databases</module>
 		<module>ide/ide-ui-debugger</module>
-		<module>ide/ide-ui-deploy-manager</module>
+		<!-- <module>ide/ide-ui-deploy-manager</module> -->
 		<module>ide/ide-ui-documents</module>
 		<module>ide/ide-ui-documents-ext-content-type-ms</module>
 		<module>ide/ide-ui-entity</module>
@@ -210,7 +210,7 @@
 		<module>template/template-application-rest</module>
 		<module>template/template-application-schema</module>
 		<module>template/template-application-ui-angular</module>
-		<module>template/template-bookstore</module>
+		<!-- <module>template/template-bookstore</module> -->
 		<module>template/template-bpm</module>
 		<module>template/template-database-access</module>
 		<module>template/template-database-table</module>
@@ -767,11 +767,11 @@
 				<artifactId>dirigible-components-ide-ui-debugger</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.eclipse.dirigible</groupId>
-				<artifactId>dirigible-components-ide-ui-deploy-manager</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+			<!-- <dependency> -->
+			<!-- 	<groupId>org.eclipse.dirigible</groupId> -->
+			<!-- 	<artifactId>dirigible-components-ide-ui-deploy-manager</artifactId> -->
+			<!-- 	<version>${project.version}</version> -->
+			<!-- </dependency> -->
 			<dependency>
 				<groupId>org.eclipse.dirigible</groupId>
 				<artifactId>dirigible-components-ide-ui-documents</artifactId>

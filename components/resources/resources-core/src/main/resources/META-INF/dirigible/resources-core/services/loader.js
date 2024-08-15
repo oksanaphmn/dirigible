@@ -16,7 +16,7 @@ import { uuid } from "sdk/utils";
 const COOKIE_PREFIX = "DIRIGIBLE.resources-core.loader.";
 
 const baseJs = [
-    "/jquery/3.6.0/jquery.min.js",
+    "/jquery/3.7.1/jquery.min.js",
     "/angularjs/1.8.2/angular.min.js",
     "/angularjs/1.8.2/angular-resource.min.js",
     "/angular-aria/1.8.2/angular-aria.min.js",
@@ -31,7 +31,7 @@ const baseJs = [
 ];
 
 const viewCss = [
-    "/fundamental-styles/0.30.2/dist/fundamental-styles.css",
+    "/fundamental-styles/0.37.4/dist/fundamental-styles.css",
     "/resources/styles/core.css",
     "/resources/styles/widgets.css",
 ];
@@ -99,7 +99,7 @@ function processScriptRequest(scriptId) {
 function getLocations(scriptId) {
     if (scriptVersion) {
         const base = [
-            "/jquery/3.6.0/jquery.min.js",
+            "/jquery/3.7.1/jquery.min.js",
             "/angularjs/1.8.2/angular.min.js",
             "/angularjs/1.8.2/angular-resource.min.js",
             "/angular-aria/1.8.2/angular-aria.min.js",

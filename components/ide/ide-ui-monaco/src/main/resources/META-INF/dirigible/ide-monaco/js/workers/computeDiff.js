@@ -1,4 +1,4 @@
-importScripts("/webjars/diff/5.1.0/dist/diff.js");
+importScripts("/webjars/diff/5.2.0/dist/diff.js");
 function getNewLines(oldText, newText, isWhitespaceIgnored = false) {
     if (
         oldText[oldText.length - 1] !== "\n" ||
