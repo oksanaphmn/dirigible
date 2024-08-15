@@ -23,7 +23,8 @@ public class DropSchemaBuilder extends AbstractDropSqlBuilder {
     private static final Logger logger = LoggerFactory.getLogger(CreateSchemaBuilder.class);
 
     /** The name. */
-    private String name;
+    private final String name;
+    private boolean cascade = false;
 
     /**
      * Instantiates a new creates the schema builder.
@@ -52,6 +53,11 @@ public class DropSchemaBuilder extends AbstractDropSqlBuilder {
         // SCHEMA
         generateSchema(sql);
 
+        if (cascade) {
+            sql.append(SPACE)
+               .append(KEYWORD_DATABASE_DROP_CASCADE);
+        }
+
         String generated = sql.toString();
 
         if (logger.isTraceEnabled()) {
@@ -67,7 +73,7 @@ public class DropSchemaBuilder extends AbstractDropSqlBuilder {
      * @param sql the sql
      */
     protected void generateSchema(StringBuilder sql) {
-        String schemaName = (isCaseSensitive()) ? encapsulate(this.getName(), true) : this.getName();
+        String schemaName = encapsulate(this.getName(), true);
         sql.append(SPACE)
            .append(KEYWORD_SCHEMA)
            .append(SPACE)
@@ -81,5 +87,10 @@ public class DropSchemaBuilder extends AbstractDropSqlBuilder {
      */
     public String getName() {
         return name;
+    }
+
+    public DropSchemaBuilder cascade(boolean cascade) {
+        this.cascade = cascade;
+        return this;
     }
 }

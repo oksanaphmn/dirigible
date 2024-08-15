@@ -22,7 +22,6 @@
 		<module>database-sql-hana</module>
 		<module>database-sql-mysql</module>
 		<module>database-sql-postgres</module>
-		<module>database-sql-sybase</module>
 		<module>database-sql-mongodb</module>
 		<module>database-mongodb-jdbc</module>
 		<module>database-sql-snowflake</module>
@@ -39,5 +38,15 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.eclipse.dirigible</groupId>
+				<artifactId>dirigible-components-data-sources</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>

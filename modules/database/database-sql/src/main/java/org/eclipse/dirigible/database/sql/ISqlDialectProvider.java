@@ -9,17 +9,14 @@
  */
 package org.eclipse.dirigible.database.sql;
 
+import org.eclipse.dirigible.components.database.DatabaseSystem;
+
 /**
  * The Interface ISqlDialectProvider.
  */
 public interface ISqlDialectProvider {
 
-    /**
-     * Gets the name.
-     *
-     * @return the name
-     */
-    String getName();
+    DatabaseSystem getDatabaseSystem();
 
     /**
      * Gets the dialect.

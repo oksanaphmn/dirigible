@@ -20,6 +20,8 @@ import java.util.Base64;
  */
 public enum DirigibleConfig {
 
+    SNOWFLAKE_DATA_SOURCE_LIFESPAN_SECONDS("DIRIGIBLE_SNOWFLAKE_DATA_SOURCE_LIFESPAN_SECONDS", "540"), // 9 minutes
+
     LEAKED_CONNECTIONS_MAX_IN_USE_SECONDS("DIRIGIBLE_LEAKED_CONNECTIONS_MAX_IN_USE_SECONDS", "180"), // 3 min by default
 
     LEAKED_CONNECTIONS_CHECK_INTERVAL_SECONDS("DIRIGIBLE_LEAKED_CONNECTIONS_CHECK_INTERVAL_SECONDS", "30"),
@@ -46,8 +48,6 @@ public enum DirigibleConfig {
 
     /** The multi tenant mode enabled. */
     MULTI_TENANT_MODE_ENABLED("DIRIGIBLE_MULTI_TENANT_MODE", Boolean.FALSE.toString()),
-
-    DATABASE_NAMES_CASE_SENSITIVE("DIRIGIBLE_DATABASE_NAMES_CASE_SENSITIVE", Boolean.FALSE.toString()),
 
     /** The tenant subdomain regex. */
     TENANT_SUBDOMAIN_REGEX("DIRIGIBLE_TENANT_SUBDOMAIN_REGEX", "^([^\\.]+)\\..+$"),
@@ -76,6 +76,10 @@ public enum DirigibleConfig {
     DirigibleConfig(String key, String defaultValue) {
         this.key = key;
         this.defaultValue = defaultValue;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
     }
 
     /**

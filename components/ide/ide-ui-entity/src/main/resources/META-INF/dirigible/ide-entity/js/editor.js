@@ -324,6 +324,7 @@ angular.module('ui.entity-data.modeler', ["ideUI", "ideView", "ideWorkspace", "i
 				cell.value.calculatedPropertyExpressionUpdate = msg.data.calculatedPropertyExpressionUpdate;
 				cell.value.dataName = msg.data.dataName;
 				cell.value.dataType = msg.data.dataType;
+				cell.value.dataOrderBy = msg.data.dataOrderBy;
 				cell.value.dataLength = msg.data.dataLength;
 				cell.value.dataPrimaryKey = msg.data.dataPrimaryKey;
 				cell.value.dataAutoIncrement = msg.data.dataAutoIncrement;
@@ -344,6 +345,7 @@ angular.module('ui.entity-data.modeler', ["ideUI", "ideView", "ideWorkspace", "i
 				cell.value.widgetIsMajor = msg.data.widgetIsMajor;
 				cell.value.widgetDropDownKey = msg.data.widgetDropDownKey;
 				cell.value.widgetDropDownValue = msg.data.widgetDropDownValue;
+				cell.value.widgetDropDownDependsOn = msg.data.widgetDropDownDependsOn;
 				cell.value.feedPropertyName = msg.data.feedPropertyName;
 				cell.value.roleRead = msg.data.roleRead;
 				cell.value.roleWrite = msg.data.roleWrite;
@@ -919,6 +921,7 @@ angular.module('ui.entity-data.modeler', ["ideUI", "ideView", "ideWorkspace", "i
 									calculatedPropertyExpressionUpdate: cell.value.calculatedPropertyExpressionUpdate,
 									dataName: cell.value.dataName,
 									dataType: cell.value.dataType,
+									dataOrderBy: cell.value.dataOrderBy,
 									dataLength: cell.value.dataLength,
 									dataPrimaryKey: cell.value.dataPrimaryKey,
 									dataAutoIncrement: cell.value.dataAutoIncrement,
@@ -939,6 +942,7 @@ angular.module('ui.entity-data.modeler', ["ideUI", "ideView", "ideWorkspace", "i
 									widgetIsMajor: cell.value.widgetIsMajor,
 									widgetDropDownKey: cell.value.widgetDropDownKey,
 									widgetDropDownValue: cell.value.widgetDropDownValue,
+									widgetDropDownDependsOn: cell.value.widgetDropDownDependsOn,
 									feedPropertyName: cell.value.feedPropertyName,
 									roleRead: cell.value.roleRead,
 									roleWrite: cell.value.roleWrite,

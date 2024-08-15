@@ -96,6 +96,9 @@ function createModel(graph) {
 					model.push('    <property name="' + _.escape(property.name) +
 						'" dataName="' + _.escape(property.dataName) +
 						'" dataType="' + _.escape(property.dataType) + '"');
+					if (property.dataOrderBy) {
+						model.push(' dataOrderBy="' + _.escape(property.dataOrderBy) + '"');
+					}
 					if (property.dataLength !== null && (property.dataType === 'CHAR' || property.dataType === 'VARCHAR')) {
 						model.push(' dataLength="' + _.escape(property.dataLength) + '"');
 					}
@@ -189,6 +192,9 @@ function createModel(graph) {
 					}
 					if (property.widgetDropDownValue !== null) {
 						model.push(' widgetDropDownValue="' + _.escape(property.widgetDropDownValue) + '"');
+					}
+					if (property.widgetDropDownDependsOn !== null) {
+						model.push(' widgetDropDownDependsOn="' + _.escape(property.widgetDropDownDependsOn) + '"');
 					}
 					if (property.relationshipEntityPerspectiveName !== null) {
 						model.push(' relationshipEntityPerspectiveName="' + _.escape(property.relationshipEntityPerspectiveName) + '"');
